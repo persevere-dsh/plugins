@@ -1,0 +1,21 @@
+# Dependencies and local tool caches — never committed.
+node_modules/
+.npm/
+*.tsbuildinfo
+
+# Installable plugin tarballs — never committed (CI builds them from source).
+*.tgz
+
+# Generated Typert artifacts and bundles are NOT committed in this collection:
+# they are produced by `npm run codegen` / `npm run build` locally and in CI.
+# Each plugin ignores its own output directories here so the rule travels with
+# the workspace and stays visible in one place.
+packages/*/lib/
+packages/*/dist/
+
+# Editor / OS noise.
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

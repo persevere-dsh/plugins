@@ -1,0 +1,55 @@
+name: CI
+
+# Persevere with DSH plugin collection — continuous integration.
+#
+# The skeleton starts with ZERO plugin packages under packages/*. Every step
+# below must therefore succeed in that state; per-package build/test fan-out is
+# handled by scripts/run-workspaces.mjs, which skips (never fails) when the
+# workspace is empty.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: build + test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: List plugin packages
+        run: |
+          count=0
+          for dir in packages/*/; do
+            if [ -f "${dir}package.json" ]; then count=$((count + 1)); fi
+          done
+          echo "plugin packages detected: ${count}"
+          if [ "${count}" -eq 0 ]; then
+            echo "No packages under packages/* yet — per-package build/test will no-op."
+          fi
+
+      - name: Typecheck workspace host face
+        run: npm run typecheck
+
+      - name: Generate Typert artifacts
+        run: npm run codegen
+
+      - name: Build plugin packages
+        run: npm run build
+
+      - name: Test plugin packages
+        run: npm test
