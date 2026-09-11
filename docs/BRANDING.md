@@ -9,9 +9,9 @@ names, READMEs, release notes, commit messages, UI strings, and issue templates.
 Brand phrase (never abbreviated):  Persevere with DSH
 GitHub org login:                  persevere-dsh
 GitHub org display name:           Persevere with DSH
-Collection repository:             persevere-dsh/plugins
-Each plugin repository:            persevere-dsh/dsh-<name>
-npm scope:                         @persevere-dsh/<name>
+Collection repository (index):     persevere-dsh/plugins
+Each plugin repository:            persevere-dsh/perse-<name>
+npm package:                       perse-<name>
 Short form (spoken docs only):     perse   ← first use must note "perse = persevere"
 ```
 
@@ -30,20 +30,24 @@ first mention, tagline, package description, release title.
 repository, package, environment variable, or document is a bug: replace it with
 `PERSEVERE_DSH` for identifiers or the full brand phrase for prose.
 
-### 3. `perse` is spoken shorthand only
+### 3. `perse` is spoken shorthand and the plugin prefix
 
-`perse` may appear in conversational documentation, internal notes, and verbal
-descriptions of the project. It must **never** appear in:
-
-- a repository name, GitHub org login, or npm package name;
-- a user-visible product title or headline;
-- a `package.json` `name` field or any other identifier.
+`perse` may appear in conversational documentation and internal notes, and it is the
+mandatory prefix on plugin identifiers: repository `persevere-dsh/perse-<name>`, npm
+package `perse-<name>`, plugin id `perse-<name>`.
 
 At its **first occurrence** in any document, `perse` must be defined:
 
 ```md
 `perse` = persevere
 ```
+
+It must **never**:
+
+- replace the brand phrase **Persevere with DSH** in a user-visible title or headline;
+- appear as an abbreviation of the brand phrase itself (write the full phrase, not `perse`);
+- appear in the GitHub org login (`persevere-dsh`) or the collection repository name
+  (`persevere-dsh/plugins`).
 
 ### 4. Identifiers are lowercase kebab-case
 
@@ -52,13 +56,13 @@ uses lowercase letters, digits, and hyphens only:
 
 | Kind | Pattern | Example |
 | --- | --- | --- |
-| Plugin repository | `persevere-dsh/dsh-<name>` | `persevere-dsh/dsh-update-center` |
-| npm package | `@persevere-dsh/<name>` | `@persevere-dsh/update-center` |
-| Workspace directory | `packages/<name>` | `packages/update-center` |
+| Plugin repository | `persevere-dsh/perse-<name>` | `persevere-dsh/perse-updater` |
+| npm package | `perse-<name>` | `perse-updater` |
+| Collection repository | `persevere-dsh/plugins` | `persevere-dsh/plugins` |
 | Environment variable | `PERSEVERE_DSH_<THING>` | `PERSEVERE_DSH_PROFILE` |
 
 `<name>` itself is lowercase kebab-case and describes the plugin, not the brand:
-`update-center`, not `persevere-update-center` (the org already carries the brand).
+`updater`, giving `perse-updater` — never `perse-perse-updater`.
 
 ### 5. Display name vs. login
 
@@ -73,5 +77,5 @@ Before committing any user-facing text, confirm:
 - [ ] **Persevere with DSH** appears in full at least once and is never abbreviated.
 - [ ] The string `PWD` does not appear anywhere.
 - [ ] If `perse` appears, its first occurrence is followed by `= persevere`.
-- [ ] Every identifier is lowercase kebab-case.
+- [ ] Every identifier is lowercase kebab-case; plugin names carry the `perse-` prefix.
 - [ ] The footer line `Part of Persevere with DSH` is present in each README.

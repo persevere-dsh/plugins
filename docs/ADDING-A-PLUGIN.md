@@ -1,63 +1,59 @@
 # Adding a plugin to the Persevere with DSH collection
 
-This is the checklist for landing a new plugin in this workspace. It assumes the plugin
-follows the out-of-tree DSH plugin shape already proven by
-`/Users/lxl/Documents/anything/dsh-update-center/` — the **first sample** for this
-collection. That checkout is referenced by path only; no code has been copied into this
-skeleton yet.
+Every plugin is an **independent repository** under the `persevere-dsh` organisation, named
+`persevere-dsh/perse-<name>`. Nothing is shared with the collection index repo
+[`persevere-dsh/plugins`](https://github.com/persevere-dsh/plugins): there is no skeleton,
+no template, and no workspace to join. A new plugin repo must be self-contained — its own
+manifest, its own TypeScript config, its own codegen script, its own CI, its own tests.
 
-Read [`BRANDING.md`](BRANDING.md) before naming anything.
+Read [`BRANDING.md`](BRANDING.md) before naming anything. For a working example of the
+out-of-tree DSH plugin shape, see the `dsh-update-center` checkout on the maintainer's
+machine; reference its manifest/tsconfig structure, never its business code.
 
 ## 0. Decide the name
 
 | Artifact | Value |
 | --- | --- |
-| Plugin name | `<name>` (lowercase kebab-case, e.g. `update-center`) |
-| Repository | `persevere-dsh/dsh-<name>` |
-| npm package | `@persevere-dsh/<name>` |
-| Workspace directory | `packages/<name>/` |
+| Plugin name | `perse-<name>` (lowercase kebab-case, e.g. `perse-updater`) |
+| Repository | `persevere-dsh/perse-<name>` |
+| npm package | `perse-<name>` |
+| CLI / plugin id | `perse-<name>` |
 
-## 1. Add the package skeleton
+`<name>` describes the plugin, not the brand: `updater`, not `perse-perse-updater`.
 
-Create `packages/<name>/` with:
+## 1. Create the repository
 
-- `package.json` — `name: "@persevere-dsh/<name>"`, `type: "module"`, `license: "MIT"`,
-  the `exports` map (including `"./typert"` and `"./remote"`), the exact `files[]` list,
+Create `persevere-dsh/perse-<name>` (public), default branch `main`, and clone it locally.
+Set the author identity to `Xilong Liu <49407218+Deslord319@users.noreply.github.com>`.
+
+## 2. Required files
+
+A plugin repo must ship, at minimum:
+
+- `package.json` — `name: "perse-<name>"`, `type: "module"`, `license: "MIT"`, the
+  `exports` map (including `"./typert"` and `"./remote"`), the exact `files[]` list,
   `dsh.bundle.patch` / `dsh.client` blocks when the plugin has a host patch or a web
   client, `peerDependencies` for the harness packages, and `scripts.build` /
-  `scripts.test`.
-- `tsconfig.json` — extends `../../tsconfig.base.json`, `rootDir: "src"`,
-  `outDir: "lib/types"`, `noEmit: false`.
+  `scripts.test` / `scripts.codegen`.
+- `tsconfig.json` — **self-contained** (`rootDir: "src"`, `outDir: "lib/types"`,
+  `noEmit: false`). Do not extend a file from another repository; there is no shared base.
 - `src/` — the host-side source. Exported reference objects, Cordis services/events, and
   `@Remote` methods are what codegen turns into artifacts.
-- `README.md` and `README.zh.md` — mirror this repo's two-README convention, each ending
-  with the footer line `Part of Persevere with DSH`.
-- A host-side test entry (see step 4).
+- `typert-protocol.d.ts` — only when the plugin imports the Typert protocol type shim.
+- `test/` — host-side tests (see step 5).
+- `README.md` and `README.zh.md` — the dual README convention (see step 6).
+- `LICENSE` — MIT, copyright `Xilong Liu`.
+- `.gitignore` — at least `node_modules/`, `lib/`, `dist/`, `*.tgz`.
 
-Reference shape: `dsh-update-center/packages/update-center/package.json` and its
-`tsconfig.json`. Do not copy its business code — only the manifest/tsconfig structure.
+## 3. Self-owned codegen
 
-## 2. Register the package in the workspace graph
+Codegen belongs to the plugin repo and depends on nothing in this collection:
 
-- Add the package directory to `packages/`; `workspaces: ["packages/*"]` picks it up and
-  `scripts/gen-typert.mjs` discovers it automatically from its `package.json` — there is
-  **no central package list to edit**.
-- Add `{ "path": "./packages/<name>" }` to the `references` array in `tsconfig.host.json`.
-- If the plugin imports the Typert protocol type shim, add `typert-protocol.d.ts` at the
-  repo root plus the matching `paths` entry in `tsconfig.base.json`, mirroring
-  `dsh-update-center/tsconfig.base.json` and `dsh-update-center/typert-protocol.d.ts`.
-- Run `npm install` so the new workspace link and any new dependency land in
-  `package-lock.json` (commit the lockfile).
+- commit `scripts/gen-typert.mjs` inside the plugin repo, calling the published
+  `@deepseek-ai/dsh-typert-generator`;
+- run it as `npm run codegen`; it must work in a plain clone with no sibling checkouts.
 
-## 3. Run codegen
-
-```sh
-npm run typecheck     # tsc -b tsconfig.host.json must pass before codegen
-npm run codegen       # node scripts/gen-typert.mjs
-```
-
-Codegen calls the published `@deepseek-ai/dsh-typert-generator` and writes, under
-`packages/<name>/lib/`:
+It writes, under `lib/`:
 
 ```
 lib/typert.host.js
@@ -69,80 +65,83 @@ lib/typert.remote-client.d.ts.map
 
 The generator's `validateExport()` refuses to emit unless `exports["./typert"]`,
 `exports["./remote"]`, and `files[]` already match those exact paths — fix the manifest,
-not the script. Paths live only under `lib/`, never `src/`.
+not the script. Paths live only under `lib/`, never `src/`. `lib/` is **not committed**.
 
-`lib/` is **not committed**: it is generated by `npm run build` locally and by CI. The
-committed surface is source plus the manifest contract.
+## 4. Self-owned CI
 
-## 4. Host tests
+Commit `.github/workflows/ci.yml` **in the plugin repo** running:
 
-Add a `test` script to the package that runs without the DSH harness checkout, e.g.
+- `npm ci`
+- `npm run typecheck`
+- `npm run codegen`
+- `npm run build`
+- `npm test`
+
+No workflow, script, or config is inherited from the index repo.
+
+## 5. Tests
+
+Add a `test` script that runs without the DSH harness checkout, e.g.
 `node --test test/*.test.mjs`, and cover:
 
 - the exported reference objects and their schema shapes;
 - every host method that codegen exposes through the Typert Gateway;
-- error/edge paths of the host service, with no network or `~/.dsh` access.
-
-Run `npm test` at the root to confirm `npm run test --workspaces --if-present` picks the
-package up.
-
-## 5. Client bundle (web profile plugins only)
-
-If the plugin ships a web UI:
-
-- add the client entry (`client.js`) and declare it in `exports["./client"]` and `files[]`;
-- declare `dsh.client.platform: "web"` and the `inject` list in `package.json`;
-- build the bundle with `tsdown` (see `dsh-update-center/tsdown.config.ts`) and verify the
-  built bundle is byte-declared by the manifest before packing.
+- error/edge paths of the host service, with no network and no `~/.dsh` access.
 
 ## 6. Dual README
 
-Every plugin repository ships both languages, each with the full brand phrase and the
-footer:
+Every plugin repository ships both languages, each containing the full brand phrase and
+ending with the footer line `Part of Persevere with DSH`:
 
 - `README.md` (English, primary)
 - `README.zh.md` (Chinese)
 
 Both must satisfy the [`BRANDING.md`](BRANDING.md) self-check.
 
-## 7. Confirm CI coverage
+## 7. Client bundle (web profile plugins only)
 
-`.github/workflows/ci.yml` detects packages by scanning `packages/*/package.json`, so a new
-package is covered as soon as it exists. Push the branch and confirm the run executes:
+If the plugin ships a web UI:
 
-- `npm run typecheck`
-- `npm run codegen`
-- `npm run build --workspaces --if-present`
-- `npm run test --workspaces --if-present`
-
-Zero packages must keep passing (skip, never fail); a new package must not break that.
+- add the client entry (`client.js`) and declare it in `exports["./client"]` and `files[]`;
+- declare `dsh.client.platform: "web"` and the `inject` list in `package.json`;
+- build the bundle with `tsdown` and verify the built bundle is declared by the manifest
+  before packing.
 
 ## 8. Pack and install
 
 ```sh
-npm run build --workspaces --if-present
-cd packages/<name> && npm pack
-dsh plugin --profile web add ./persevere-dsh-<name>-<version>.tgz
+npm ci
+npm run build
+npm pack                                   # -> perse-<name>-<version>.tgz
+dsh plugin --profile web add ./perse-<name>-<version>.tgz
 ```
 
-Do **not** link the directory into the profile — that path was tested and fails at load
-time. Always install from the packed tarball.
+Do **not** link the directory into the profile: a directory link was tested and fails at
+load time because the host resolves the plugin outside the packed `files[]` surface and
+peer resolution breaks. Always install from the packed tarball.
 
-## 9. Publish (separate step)
+## 9. Register in the index
 
-Repository creation under `persevere-dsh/dsh-<name>` and npm publishing are done by hand
-after the name and namespace are confirmed. This collection repository stays private and
-is never published.
+Open a pull request against [`persevere-dsh/plugins`](https://github.com/persevere-dsh/plugins)
+adding one row to the plugin table in both `README.md` and `README.zh.md`
+(`Plugin / 说明 / 仓库 / 安装`), and paste the status badge once the repo is public. The
+index repo holds no plugin code — only the table and these docs.
+
+## 10. Publish (separate step)
+
+npm publishing, if any, is done by hand from the plugin repo after the name and namespace
+are confirmed. The index repo is never published.
 
 ## Checklist
 
-- [ ] `packages/<name>/package.json` uses `@persevere-dsh/<name>` and an exact `files[]`
-- [ ] `tsconfig.host.json` references the new package
-- [ ] `npm run typecheck` passes
-- [ ] `npm run codegen` emits all five artifacts under `lib/`
-- [ ] Host tests pass via `npm test`
+- [ ] Repository `persevere-dsh/perse-<name>` exists, branch `main`
+- [ ] `package.json` uses `perse-<name>` and an exact `files[]`
+- [ ] `tsconfig.json` is self-contained (no cross-repo `extends`)
+- [ ] `scripts/gen-typert.mjs` is committed and `npm run codegen` emits all five artifacts
+- [ ] `.github/workflows/ci.yml` runs typecheck + codegen + build + test
+- [ ] Host tests pass via `npm test`, with no network or `~/.dsh` access
 - [ ] Client bundle builds and is declared (web plugins)
 - [ ] `README.md` + `README.zh.md` with the `Part of Persevere with DSH` footer
-- [ ] Branding self-check passes (no abbreviation, no `PWD`, `perse = persevere`)
-- [ ] CI run is green and exercises the new package
-- [ ] Packed tarball installs into a profile
+- [ ] Branding self-check passes (no `PWD`, no abbreviated brand, `perse = persevere`)
+- [ ] Packed tarball installs into a profile via `npm pack` → `dsh plugin add <tgz>`
+- [ ] A row is added to the index repo's README tables

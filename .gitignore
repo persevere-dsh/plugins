@@ -1,17 +1,14 @@
+# This index repository holds no plugin sources: only READMEs, branding rules,
+# and this ignore list. Plugins are separate repositories with their own
+# .gitignore covering lib/ and dist/.
+
 # Dependencies and local tool caches — never committed.
 node_modules/
 .npm/
 *.tsbuildinfo
 
-# Installable plugin tarballs — never committed (CI builds them from source).
+# Installable plugin tarballs — never committed.
 *.tgz
-
-# Generated Typert artifacts and bundles are NOT committed in this collection:
-# they are produced by `npm run codegen` / `npm run build` locally and in CI.
-# Each plugin ignores its own output directories here so the rule travels with
-# the workspace and stays visible in one place.
-packages/*/lib/
-packages/*/dist/
 
 # Editor / OS noise.
 .DS_Store
