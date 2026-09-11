@@ -17,10 +17,9 @@ monorepo —— 没有共享骨架、没有模板、没有工作区。每个插�
 
 | Plugin | 说明 | 仓库 | 安装 |
 | --- | --- | --- | --- |
-| `perse-updater` | 安全地把 DSH 带到下一个版本（预检兼容性、版本化安装、失败自动回滚） | `persevere-dsh/perse-updater` —— _即将上线 / coming soon_ | `npm pack` → `dsh plugin --profile web add <tgz>` |
+| `perse-updater` | 安全地把 DSH 带到下一个版本（预检兼容性、版本化安装、失败自动回滚） | [`persevere-dsh/perse-updater`](https://github.com/persevere-dsh/perse-updater) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 
-`perse-updater` 是合集的第一个插件。它的仓库尚未创建；链接与状态徽章会在仓库上线后
-立即补上。
+`perse-updater` 是合集的第一个插件。
 
 ## 安装
 

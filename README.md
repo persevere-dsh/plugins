@@ -18,10 +18,9 @@ from its own source, and is published from there. The index repo is never publis
 
 | Plugin | 说明 | 仓库 | 安装 |
 | --- | --- | --- | --- |
-| `perse-updater` | Safely carry DSH to the next version — compatibility preflight, versioned install, and automatic rollback on failure | `persevere-dsh/perse-updater` — _coming soon / 即将上线_ | `npm pack` → `dsh plugin --profile web add <tgz>` |
+| `perse-updater` | Safely carry DSH to the next version — compatibility preflight, versioned install, and automatic rollback on failure | [`persevere-dsh/perse-updater`](https://github.com/persevere-dsh/perse-updater) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 
-`perse-updater` is the first plugin in the collection. Its repository does not exist yet;
-the link and the status badge will be filled in as soon as it is live.
+`perse-updater` is the first plugin in the collection.
 
 ## Install
 
