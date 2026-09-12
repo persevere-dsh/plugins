@@ -19,6 +19,7 @@ from its own source, and is published from there. The index repo is never publis
 | Plugin | 说明 | 仓库 | 安装 |
 | --- | --- | --- | --- |
 | `perse-updater` | Safely carry DSH to the next version — compatibility preflight, versioned install, and automatic rollback on failure | [`persevere-dsh/perse-updater`](https://github.com/persevere-dsh/perse-updater) | `npm pack` → `dsh plugin --profile web add <tgz>` |
+| `perse-remote-dev` | Remote development workspace for DSH — host inventory and link state, ssh directory browsing and mkdir, remote DSH tunnels with token URLs, remote project open, and the rd-core batch review chain | [`persevere-dsh/perse-remote-dev`](https://github.com/persevere-dsh/perse-remote-dev) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 
 `perse-updater` is the first plugin in the collection.
 
