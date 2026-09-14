@@ -21,6 +21,7 @@ from its own source, and is published from there. The index repo is never publis
 | `perse-updater` | Safely carry DSH to the next version — compatibility preflight, versioned install, and automatic rollback on failure | [`persevere-dsh/perse-updater`](https://github.com/persevere-dsh/perse-updater) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 | `perse-remote-dev` | Remote development workspace for DSH — host inventory and link state, ssh directory browsing and mkdir, remote DSH tunnels with token URLs, remote project open, and the rd-core batch review chain | [`persevere-dsh/perse-remote-dev`](https://github.com/persevere-dsh/perse-remote-dev) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 | `perse-cua` | Front cua-driver's desktop-automation tools without their schema weight — descriptions condensed to one sentence and seven provably inert tools denied (95 KB → 60 KB of model-facing schema), plus accessibility trees with the menu bar stripped, which is 88% of a small window's bytes | [`persevere-dsh/perse-cua`](https://github.com/persevere-dsh/perse-cua) | `npm pack` → `dsh plugin --profile web add <tgz>` |
+| `perse-proof` | Make every “done” in DSH backed by evidence — frozen acceptance criteria, claim↔evidence reconciliation, an append-only fact ledger, and a reporting contract for user-facing replies | [`persevere-dsh/perse-proof`](https://github.com/persevere-dsh/perse-proof) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 
 ## Install
 
