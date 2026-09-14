@@ -20,6 +20,7 @@ from its own source, and is published from there. The index repo is never publis
 | --- | --- | --- | --- |
 | `perse-updater` | Safely carry DSH to the next version — compatibility preflight, versioned install, and automatic rollback on failure | [`persevere-dsh/perse-updater`](https://github.com/persevere-dsh/perse-updater) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 | `perse-remote-dev` | Remote development workspace for DSH — host inventory and link state, ssh directory browsing and mkdir, remote DSH tunnels with token URLs, remote project open, and the rd-core batch review chain | [`persevere-dsh/perse-remote-dev`](https://github.com/persevere-dsh/perse-remote-dev) | `npm pack` → `dsh plugin --profile web add <tgz>` |
+| `perse-cua` | Front cua-driver's desktop-automation tools without their schema weight — curated surface (56 → 27 tools, 95 KB → 40 KB of model-facing schema), first-sentence descriptions, and accessibility trees with the menu bar stripped | [`persevere-dsh/perse-cua`](https://github.com/persevere-dsh/perse-cua) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 
 `perse-updater` is the first plugin in the collection.
 
