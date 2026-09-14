@@ -21,8 +21,6 @@ monorepo —— 没有共享骨架、没有模板、没有工作区。每个插�
 | `perse-remote-dev` | 远端开发工作台（主机盘点与链路状态、ssh 目录浏览与建目录、带 token URL 的远端 DSH 隧道、远端项目打开、rd-core 批次审阅） | [`persevere-dsh/perse-remote-dev`](https://github.com/persevere-dsh/perse-remote-dev) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 | `perse-cua` | 把 cua-driver 的桌面自动化工具交给 DSH 但去掉 schema 负担（描述压到首句、只拒绝 7 个确定无用的工具，模型可见 schema 95 KB → 60 KB；AX 树剥掉菜单栏，占小窗口 88% 字节） | [`persevere-dsh/perse-cua`](https://github.com/persevere-dsh/perse-cua) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 
-`perse-updater` 是合集的第一个插件。
-
 ## 安装
 
 每个插件都以 tarball 形式打包安装：
