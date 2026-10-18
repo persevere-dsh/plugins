@@ -22,6 +22,9 @@ from its own source, and is published from there. The index repo is never publis
 | `perse-remote-dev` | Remote development workspace for DSH — host inventory and link state, ssh directory browsing and mkdir, remote DSH tunnels with token URLs, remote project open, and the rd-core batch review chain | [`persevere-dsh/perse-remote-dev`](https://github.com/persevere-dsh/perse-remote-dev) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 | `perse-cua` | Front cua-driver's desktop-automation tools without their schema weight — descriptions condensed to one sentence and seven provably inert tools denied (95 KB → 60 KB of model-facing schema), plus accessibility trees with the menu bar stripped, which is 88% of a small window's bytes | [`persevere-dsh/perse-cua`](https://github.com/persevere-dsh/perse-cua) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 | `perse-proof` | Make every “done” in DSH backed by evidence — frozen acceptance criteria, claim↔evidence reconciliation, an append-only fact ledger, and a reporting contract for user-facing replies | [`persevere-dsh/perse-proof`](https://github.com/persevere-dsh/perse-proof) | `npm pack` → `dsh plugin --profile web add <tgz>` |
+| `perse-dashboard` | Native task and session dashboard — assignment, atomic agent claiming, evidence review, and isolated native/live simulation | [`persevere-dsh/perse-dashboard`](https://github.com/persevere-dsh/perse-dashboard) | `npm pack` → `dsh plugin --profile web add <tgz>` |
+
+[![Dashboard verification](https://github.com/persevere-dsh/perse-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/persevere-dsh/perse-dashboard/actions/workflows/ci.yml)
 
 ## Install
 
