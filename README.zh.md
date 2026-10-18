@@ -23,6 +23,8 @@ monorepo —— 没有共享骨架、没有模板、没有工作区。每个插�
 | `perse-proof` | 让 DSH 的每一句“已完成”都有据可查：冻结验收判据、结论与证据机械对账、只追加的事实台账，以及面向用户回复的汇报契约 | [`persevere-dsh/perse-proof`](https://github.com/persevere-dsh/perse-proof) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 | `perse-dashboard` | 原生任务与会话看板：分配、agent 原子认领、证据验收与隔离 native/live 自验证 | [`persevere-dsh/perse-dashboard`](https://github.com/persevere-dsh/perse-dashboard) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 
+[![Dashboard verification](https://github.com/persevere-dsh/perse-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/persevere-dsh/perse-dashboard/actions/workflows/ci.yml)
+
 ## 安装
 
 每个插件都以 tarball 形式打包安装：

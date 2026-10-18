@@ -24,6 +24,8 @@ from its own source, and is published from there. The index repo is never publis
 | `perse-proof` | Make every “done” in DSH backed by evidence — frozen acceptance criteria, claim↔evidence reconciliation, an append-only fact ledger, and a reporting contract for user-facing replies | [`persevere-dsh/perse-proof`](https://github.com/persevere-dsh/perse-proof) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 | `perse-dashboard` | Native task and session dashboard — assignment, atomic agent claiming, evidence review, and isolated native/live simulation | [`persevere-dsh/perse-dashboard`](https://github.com/persevere-dsh/perse-dashboard) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 
+[![Dashboard verification](https://github.com/persevere-dsh/perse-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/persevere-dsh/perse-dashboard/actions/workflows/ci.yml)
+
 ## Install
 
 Every plugin is packed and installed as a tarball:
