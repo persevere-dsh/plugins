@@ -18,9 +18,10 @@ monorepo —— 没有共享骨架、没有模板、没有工作区。每个插�
 | Plugin | 说明 | 仓库 | 安装 |
 | --- | --- | --- | --- |
 | `perse-updater` | 安全地把 DSH 带到下一个版本（预检兼容性、版本化安装、失败自动回滚） | [`persevere-dsh/perse-updater`](https://github.com/persevere-dsh/perse-updater) | `npm pack` → `dsh plugin --profile web add <tgz>` |
-| `perse-remote-dev` | 远端开发工作台（主机盘点与链路状态、ssh 目录浏览与建目录、带 token URL 的远端 DSH 隧道、远端项目打开、rd-core 批次审阅） | [`persevere-dsh/perse-remote-dev`](https://github.com/persevere-dsh/perse-remote-dev) | `npm pack` → `dsh plugin --profile web add <tgz>` |
-| `perse-cua` | 把 cua-driver 的桌面自动化工具交给 DSH 但去掉 schema 负担（描述压到首句、只拒绝 7 个确定无用的工具，模型可见 schema 95 KB → 60 KB；AX 树剥掉菜单栏，占小窗口 88% 字节） | [`persevere-dsh/perse-cua`](https://github.com/persevere-dsh/perse-cua) | `npm pack` → `dsh plugin --profile web add <tgz>` |
+| `perse-remote-dev` | 配对并管理远程 DSH 连接，凭据保存在私有存储中；Host 具备匹配的原生扩展时可使用原生远程会话，旧版 Host 仅提供连接设置 | [`persevere-dsh/perse-remote-dev`](https://github.com/persevere-dsh/perse-remote-dev) | `npm pack` → `dsh plugin --profile web add <tgz>` |
+| `perse-cua` | 将 cua-driver 桌面自动化能力提供给 DSH，精简工具描述，默认仅过滤已弃用或无效工具，并裁去无障碍树中的菜单子树且保留元素引用 | [`persevere-dsh/perse-cua`](https://github.com/persevere-dsh/perse-cua) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 | `perse-proof` | 让 DSH 的每一句“已完成”都有据可查：冻结验收判据、结论与证据机械对账、只追加的事实台账，以及面向用户回复的汇报契约 | [`persevere-dsh/perse-proof`](https://github.com/persevere-dsh/perse-proof) | `npm pack` → `dsh plugin --profile web add <tgz>` |
+| `perse-dashboard` | DSH 原生任务与会话仪表板：分派并原子领取工作区任务、审阅证据、打开实际执行会话 | [`persevere-dsh/perse-dashboard` 1.9.4](https://github.com/persevere-dsh/perse-dashboard/tree/v1.9.4) | `npm pack` → `dsh plugin --profile web add <tgz>` |
 
 ## 安装
 
